@@ -4,8 +4,9 @@ function [ binary ] = Decode(signal, vector)
     i = 1;
     for bar = vector'
         % Decode the data one bases at a time
-        binary = binary + foo*bar';
+        binary = binary + round(foo*bar');
         foo = foo*signal.dim(i);
         i = i + 1;
     end
-    
+    binary(binary<0) = 0;
+    binary(binary>7) = 7;
