@@ -1,12 +1,17 @@
-function [ binary, vector ] = SignalGenerator(signal)
-    binary = randi(prod(signal.dim), 1, signal.train) - 1;
-    foo = binary; % temporary value for pulling apart the "binary" scalar
+function [ bin, vector ] = SignalGenerator(signal)
+    % creates an n-dimensional signal vector by treating randomly generated
+    % number as mixed-radix n-tuples.
+    % signal is a structure which which specifies the dimensionality of the
+    % the train of vectors for transmission
+    
+    tuple = randi(prod(signal.dim), 1, signal.train) - 1;
     i = 1;
     vector = zeros(length(signal.dim),signal.train);
     for bar = signal.dim
         % Encode the data one bases at a time
-        vector(i,:) = mod(foo,bar); 
-        foo = floor(foo/bar); 
+        vector(i,:) = mod(tuple,bar); 
+        tuple = floor(tuple/bar); 
         i = i + 1;
     end
     
+    [ bin ] = Convert2GrayCode(signal, vector);

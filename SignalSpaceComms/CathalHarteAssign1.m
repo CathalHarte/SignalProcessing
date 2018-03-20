@@ -3,14 +3,17 @@
 clear
 close all
 
-signal.train = 10^6;
+signal.train = 30;
 signal.dim = [ 2 4 ];
 
-[ in, vector ] = SignalGenerator(signal);
+[ inBin, inVec ] = SignalGenerator(signal);
 
-plot(vector(1,:),vector(2,:), '.')
+plot(inVec(1,1:20),inVec(2,1:20), '.') 
+% Has a fairly good chance of drawing the signal space
 
 %%
-[ rcvVector ] = AddNoise(vector, 0.02);
-[ out ] = Decode(signal, rcvVector);
-[ ser ] = SER(in, out);
+[ rcvVec ] = AddNoise(inVec, 0.02);
+[ outVec ] = Decide(signal, rcvVec);
+[ outBin ] = Convert2GrayCode(signal, outVec);
+[ ser ] = SER(inBin, outBin);
+[ ber ] = BER(inBin, outBin);
