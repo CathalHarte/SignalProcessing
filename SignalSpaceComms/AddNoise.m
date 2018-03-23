@@ -1,2 +1,2 @@
-function [ noisyVector ] = AddNoise(vector, variance)
-    noisyVector = vector + sqrt(variance)*randn(size(vector));
+function [ noisyVector ] = AddNoise(vector, std)
+    noisyVector = vector + std*randn(size(vector));
