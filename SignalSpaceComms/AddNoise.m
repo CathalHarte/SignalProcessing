@@ -1,2 +1,3 @@
-function [ noisyVector ] = AddNoise(vector, std)
-    noisyVector = vector + std*randn(size(vector));
+function [ noisyVector ] = AddNoise(vector, sigma)
+    % adds AWGN with zero mean and variance sigma^2
+    noisyVector = vector + sigma*randn(size(vector));
